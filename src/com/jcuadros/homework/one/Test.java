@@ -14,6 +14,8 @@ public class Test {
 
 	private static List<Integer> arrival;
 	private static List<Integer> serviceTime;
+	private static List<JobBean> lstJobs;
+	
 
 	public static void main(String[] args) {
 
@@ -22,7 +24,10 @@ public class Test {
 			setArrArrival();
 			setArrServicio();
 			
-			run();
+			initListJobs();
+			
+			start();
+
 
 		} catch (IOException e) {
 
@@ -129,4 +134,37 @@ public class Test {
 
 	}
 
+	public static void initListJobs(){
+		JobBean prev = null;
+		JobBean curr = null;
+		for(int i = 0 ; i < arrival.size();i++){
+			curr = new JobBean(getArrival(), getService(), prev);
+			lstJobs.add(curr);
+			prev = curr;
+		}
+	}
+	
+	
+	public static void start(){
+		
+		int i = 0;
+		
+		if((lstJobs.get(i).getPrevJob() != null) && (lstJobs.get(i).getA_i() < lstJobs.get(i).getPrevJob().getC_i())){
+			lstJobs.get(i).setD_i( lstJobs.get(i).getPrevJob().getC_i() - lstJobs.get(i).getA_i());
+		}else{
+			lstJobs.get(i).setD_i( lstJobs.get(i).getPrevJob().getC_i() - lstJobs.get(i).getA_i());
+			lstJobs.get(i).setC_i(0);
+			while(i < lstJobs.size()){
+				i++;
+				if(lstJobs.get(i).getA_i() < lstJobs.get(i).getPrevJob().getC_i()){
+					lstJobs.get(i).setD_i(lstJobs.get(i).getPrevJob().getC_i() - lstJobs.get(i).getA_i());
+				}else{
+					lstJobs.get(i).setD_i(0);
+				}
+				
+				lstJobs.get(i).setC_i(lstJobs.get(i).getA_i() + lstJobs.get(i).getD_i() + lstJobs.get(i).getS_i());
+			}
+		}
+	}
+	
 }
