@@ -20,6 +20,8 @@ public class JobBean {
 	}
 	
 	public JobBean(int a_i, int s_i, JobBean prevJob){
+		
+//		System.out.println("a_i: " +  a_i  + "s_i: " + s_i);
 		this.a_i = a_i;
 		this.s_i = s_i;
 		this.prevJob = prevJob;
@@ -103,6 +105,12 @@ public class JobBean {
 
 	public void setPrevJob(JobBean prevJob) {
 		this.prevJob = prevJob;
+	}
+
+
+	public String toString(int index) {
+		return "Job " + index + " [a_i=" + a_i + ", b_i=" + b_i + ", d_i=" + d_i + ", c_i=" + c_i + ", s_i=" + s_i + ", w_i="
+				+ w_i + "]" ;
 	}
 	
 	
