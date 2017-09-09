@@ -14,6 +14,8 @@ public class Test {
 
 	private static List<Integer> arrival;
 	private static List<Integer> serviceTime;
+	private static List<JobBean> lstJobs;
+	
 
 	public static void main(String[] args) {
 
@@ -22,7 +24,14 @@ public class Test {
 			setArrArrival();
 			setArrServicio();
 			
-			run();
+			initListJobs();
+			
+			start();
+			
+			for(int j = 1; j < lstJobs.size();j++){
+				System.out.println(lstJobs.get(j).toString(j));
+			}
+
 
 		} catch (IOException e) {
 
@@ -84,49 +93,50 @@ public class Test {
 	}
 
 	public static int getService() {
-		return arrival.get(serviceIndex++);
+		return serviceTime.get(serviceIndex++);
 	}
 
 	public static int getArrival() {
 		return arrival.get(arrivalIndex++);
 	}
 
-	public static void run() {
-
-		int c_i_1 = 0;
-
-		int a_i;
-		int b_i;
-		int d_i;
-		int c_i;
-		int s_i;
-		int w_i;
-
-		a_i = getArrival();
-		
-		if (a_i < c_i_1) {
-			d_i = c_i_1 - a_i;
-		} else {
-			d_i = 0;
-			int i = 0;
-			while (i < 10) {
-				i++;
-				a_i = getArrival();
-				if (a_i < c_i_1) {
-					d_i = c_i_1 - a_i;
-				} else {
-					d_i = 0;
-
-				}
-
-				s_i = getService();
-
-				c_i = d_i + d_i + s_i;
-
-			}
-
+	public static void initListJobs(){
+		JobBean prev = null;
+		JobBean curr = null;
+		lstJobs = new ArrayList<JobBean>();
+		for(int i = 0 ; i < arrival.size();i++){
+			curr = new JobBean(getArrival(), getService(), prev);
+			lstJobs.add(curr);
+			prev = curr;
 		}
-
 	}
+	
+	
+	public static void start(){
+		
+		int i = 0;
 
+		if((lstJobs.get(i).getPrevJob() != null) && (lstJobs.get(i).getA_i() < lstJobs.get(i).getPrevJob().getC_i())){
+			lstJobs.get(i).setD_i( lstJobs.get(i).getPrevJob().getC_i() - lstJobs.get(i).getA_i());
+		}else{
+			if(lstJobs.get(i).getPrevJob()==null){
+				lstJobs.get(i).setD_i( 0 - lstJobs.get(i).getA_i());
+			}else{
+				lstJobs.get(i).setD_i( (lstJobs.get(i).getPrevJob().getC_i()) - lstJobs.get(i).getA_i());
+			}
+			
+			lstJobs.get(i).setC_i(0);
+			while(i < lstJobs.size()-1){
+				i++;
+				if(lstJobs.get(i).getA_i() < lstJobs.get(i).getPrevJob().getC_i()){
+					lstJobs.get(i).setD_i(lstJobs.get(i).getPrevJob().getC_i() - lstJobs.get(i).getA_i());
+				}else{
+					lstJobs.get(i).setD_i(0);
+				}
+				
+				lstJobs.get(i).setC_i(lstJobs.get(i).getA_i() + lstJobs.get(i).getD_i() + lstJobs.get(i).getS_i());
+			}
+		}
+	}
+	
 }
