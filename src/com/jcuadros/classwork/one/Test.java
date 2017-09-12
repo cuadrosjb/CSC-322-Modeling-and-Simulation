@@ -45,7 +45,7 @@ public class Test {
 		}
 
 		while (index < Test.arrival.size()) {
-			index++;
+			
 			arrival = getArrival();
 			if (arrival < departure)
 				delay = departure - arrival; /* delay in queue */
@@ -58,8 +58,20 @@ public class Test {
 			sum.wait += wait;
 			sum.service += service;
 			
-			ci = Double.parseDouble(df3.format(sum.service));
+			ci = Double.parseDouble(df3.format(arrival)) +  Double.parseDouble(df3.format(delay)) +  Double.parseDouble(df3.format(service));
+			
+			if(index > 998){
+				System.out.println("arr: " + arrival);
+				System.out.println("delay: " + delay);
+				System.out.println("service: " + service);
+			}
+			
+			index++;
 		}
+		
+		System.out.println("ci: " + ci);
+		
+		
 		sum.interarrival = arrival - START;
 
 		System.out.println("\nfor " + index + " jobs\n");
@@ -67,7 +79,9 @@ public class Test {
 		System.out.println("   average service time .... = " + df3.format(sum.service / index) + "\n");
 		System.out.println("   average delay ........... = " + df3.format(sum.delay / index) + "\n");
 		System.out.println("   average wait ............ = " + df3.format(sum.wait / index) + "\n");
-
+		
+//		System.out.println("ci: " + ci + "; sum.service: " + sum.service);	
+		
 		System.out.println("   l BAR ............ = " + df3.format((1000 * Double.parseDouble(df3.format(sum.wait / index)))/ci) + "\n");
 		System.out.println("   q BAR ............ = " + df3.format((1000 * Double.parseDouble(df3.format(sum.delay / index)))/ci) + "\n");
 		System.out.println("   x BAR ............ = " + df3.format((1000 * Double.parseDouble(df3.format(sum.service / index)))/ci) + "\n");

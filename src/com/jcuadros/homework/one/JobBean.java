@@ -109,8 +109,7 @@ public class JobBean {
 
 
 	public String toString(int index) {
-		return "Job " + index + " [a_i=" + a_i + ", b_i=" + b_i + ", d_i=" + d_i + ", c_i=" + c_i + ", s_i=" + s_i + ", w_i="
-				+ w_i + "]" ;
+		return "Job " + index + " [a_i=" + a_i + ", d_i=" + d_i + ", s_i=" + s_i + "]" ;
 	}
 	
 	
