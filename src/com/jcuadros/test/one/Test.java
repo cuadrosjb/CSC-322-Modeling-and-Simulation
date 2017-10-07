@@ -25,7 +25,7 @@ public class Test {
 
 	
 	//Random function provided the book at page #54
-	public static double random() {
+	public double random() {
 		long A = 48271; /* multiplier */
 		long M = 2147483647; /* modulus */
 		long Q = M / A; /* quotient */
