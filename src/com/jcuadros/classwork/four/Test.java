@@ -1,5 +1,4 @@
-package com.jcuadros.classwork.three;
-
+package com.jcuadros.classwork.four;
 import java.sql.Connection;
 import java.text.DecimalFormat;
 import java.util.Arrays;
@@ -16,8 +15,10 @@ public class Test {
 	private static DecimalFormat df3 = new DecimalFormat(".##");
 
 	public static void main(String[] args) {
-		Integer[] arr = { 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 };
+		Integer[] arr = { 1,2,3,4,5,6 };
+		
 		List<Integer> num = Arrays.asList(arr);
+		
 		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
 
 		for (int i = 0; i < 100000; i++) {
@@ -34,13 +35,35 @@ public class Test {
 		for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
 			System.out.println(entry.getKey() + ":\t" + df3.format(((double) entry.getValue() / 100000) * 100) + "%");
 		}
+		
+		
+//		testRollItUpFunc();
+		
+	}
+	
+	public static void testRollItUpFunc(){
+		System.out.println("-------------------------------------");
+		rollItUp();
+		System.out.println("-------------------------------------");
+		rollItUp();
+		System.out.println("-------------------------------------");
+		rollItUp();
+		System.out.println("-------------------------------------");
 	}
 
 	public static int rollItUp() {
-		int sum = 0;
-		for (int i = 0; i < 3; i++)
-			sum += equililikely(1, 6);
-		return sum;
+		int max = 0;
+//		System.out.println("current max: " + max);
+		for (int i = 0; i < 3; i++){
+//			System.out.print("rolling the dice #" + (i+1) + " showing: ");
+			int temp = equililikely(1, 6);
+//			System.out.println(temp);
+			if(max < temp){
+				max = temp;
+//				System.out.println("assigning new max: " + max);
+			}
+		}
+		return max;
 	}
 
 	public static double random() {
